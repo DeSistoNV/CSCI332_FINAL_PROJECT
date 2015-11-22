@@ -42,19 +42,25 @@ echo "</table></div>";
 
 
 <section id="contact">
-	<article>
+    <article>
 
-		
-			<label for="checkcontact" class="contactbutton"><div></div><h1>Log Visit</h1></label><input id="checkcontact" type="checkbox">
-	
-			<form action="includes/save_visit.php" method="post" class="contactform">
-				<p class="input_wrapper"><input type="text" name="Name" value="<?php echo $number ?>"  id ="contact_nom"><label for="contact_nom">NEED</label></p>
-				<p class="input_wrapper"><input type="text" name="City" value="<?php echo $number ?>"  id ="contact_email"><label for="contact_email">TO</label></p>
-				<p class="input_wrapper"><input type="text" name="State" value="<?php echo $number ?>"  id ="contact_email"><label for="contact_email">FIX</label></p></label></p>
+        
+            <label for="checkcontact" class="contactbutton"><div></div><h1>Record Visit</h1></label><input id="checkcontact" type="checkbox">
+    
+            <form action="includes/save_visit.php" method="post" class="contactform">
+                <p class="input_wrapper"><input type="number" name="Rating" onKeyDown="limitText(this,1);" onKeyUp="limitText(this,1);" value="<?php echo $number ?>"  max=5 min=0 id ="contact_email"><label for="contact_email">Rating</label></p>
+                                
+                <p class="input_wrapper"><select name="VisitorID">
+                <?php include "includes/pick_guest.php" ?>
+                </select><label id='picker' for="contact_email">Visitor</label></p>
 
-				<p class="submit_wrapper"><input type="submit" value="save"></p>			
-			</form>
-	</article>
+                <p class="input_wrapper"><select name="AttractionID">
+                <?php include "includes/pick_attraction.php" ?>
+                </select><label id='picker' for="contact_email">Attraction</label></p>
+                <p class="submit_wrapper"><input type="submit" value="save"></p>        
+
+            </form>
+    </article>
 </section>
 
 

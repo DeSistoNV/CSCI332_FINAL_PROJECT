@@ -15,6 +15,7 @@ echo
 
    <script src="js/sorttable.js"></script>
    <script src="js/lengthcheck.js"></script>
+   <script src="js/notify.min.js"></script>
 
    <script src="js/pop.min.js"></script>
 
