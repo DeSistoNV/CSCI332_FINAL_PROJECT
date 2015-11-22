@@ -5,6 +5,7 @@
 <body>
 
 <?php include "includes/navbar.php"; ?>
+<?php include "includes/diagram_action.php";?>
 
 <script> document.getElementById("visits").className += " active"; </script>
 
@@ -13,17 +14,23 @@ include 'includes/sql_connect.php';
 echo '<div class="datagrid">';
 echo "<table class='sortable'>";
 echo "<thead><tr><th>Visited</th><th>Attraction</th><th>Visitor</th><th>Park</th></tr></thead>";
-if ($result = $mysqli->query("SELECT * from Visits")) {
+$sql_query1 = "SELECT * FROM Visits";
+if ($result = $mysqli->query($sql_query1)) {
     while($row = $result->fetch_array(MYSQLI_ASSOC)) {
          echo "<tr><td>";
          echo date('F jS Y h:i A', strtotime($row["Visited"]));
          echo "</td><td>";
-         echo $mysqli->query("SELECT * from Attraction WHERE ID =". $row["AttractionID"])->fetch_array(MYSQLI_ASSOC)['Name'];
+         $sql_query2 = "SELECT * FROM Attraction WHERE ID =" . $row["AttractionID"];
+         $attraction = $mysqli->query($sql_query2)->fetch_array(MYSQLI_ASSOC);
+         echo $attraction['Name'];
          echo "</td><td>";
-         $visitor_query = $mysqli->query("SELECT * from Visitor WHERE ID =". $row["VisitorID"])->fetch_array(MYSQLI_ASSOC);
+         $sql_query3 = "SELECT * FROM Visitor WHERE ID =" . $row["VisitorID"];
+         $visitor_query = $mysqli->query($sql_query3)->fetch_array(MYSQLI_ASSOC);
          echo $visitor_query['FirstName'].' '.$visitor_query['LastName'];
          echo "</td><td>";
+         $sql_query4 = "SELECT * FROM Park WHERE ID = (SELECT ParkID from Attraction WHERE ID =". $attraction['ID'].")";
 
+         echo $mysqli->query($sql_query4)->fetch_array(MYSQLI_ASSOC)['Name'];
          echo "</td></tr>";
     }
 echo "</table></div>";    
@@ -52,7 +59,24 @@ echo "</table></div>";
 
 
 </div>
+<script>
 
+query1 = <?php echo json_encode($sql_query1);?>;
+query2 = <?php echo json_encode($sql_query2);?>;
+query3 = <?php echo json_encode($sql_query3);?>;
+query4 = <?php echo json_encode($sql_query4);?>;
+
+
+
+window.onload = function() {
+simplePopup({
+  'pop-title':  ' ', 
+  'pop-body': query1 + "<br><br>" + query2 + "<br><br>" + query3 + "<br><br>" + query4, 
+  'btn-text': 'Done',
+  'round-corners' : true
+});
+};
+</script>
 
 
 </body>

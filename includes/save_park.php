@@ -1,3 +1,11 @@
+<!doctype html>
+<html lang=''>
+<?php include 'save_head.php'; ?>
+
+<body>
+<?php include 'navbar.php'; ?>
+
+
 <?php
 include 'sql_connect.php';
 $sql = "INSERT INTO Park (Name,Opens,Closes,EntryFee) VALUES ('" . $_REQUEST["Name"] . "','" ;
@@ -20,4 +28,22 @@ $mysqli->query($phone_add);
 
 ?>
 
-<script> window.location = '../default.php'; </script>
+<script>
+
+park_insert = <?php echo json_encode($sql);?>;
+addr_insert = <?php echo json_encode($addr_add);?>;
+phone_insert = <?php echo json_encode($phone_add);?>;
+
+
+window.onload = function() {
+simplePopup({
+  'pop-title':  ' ', 
+  'pop-body': park_insert + '<br><br>'  + addr_insert + '<br><br>' +  phone_insert, 
+  'btn-text': 'Done',
+  'click-fn': function() {window.location.href = '../default.php'; }
+});
+};
+</script>
+
+</body>
+</html>

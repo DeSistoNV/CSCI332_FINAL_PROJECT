@@ -5,16 +5,18 @@
 <body>
 
 <?php include "includes/navbar.php"; ?>
+<?php include "includes/diagram_action.php";?>
+
 <script> document.getElementById("guest").className += "active"; </script>
 
- <link rel="stylesheet" href="style/table_st.css">
 
 <?php
 include 'includes/sql_connect.php';
 echo '<div class="datagrid">';
 echo "<table class='sortable'>";
 echo "<thead><tr><th>Name</th><th>Age</th><th>HomeTown</th></tr></thead>";
-if ($result = $mysqli->query("SELECT * from Visitor")) {
+$sql_query = "SELECT * FROM Visitor";
+if ($result = $mysqli->query($sql_query)) {
     while($row = $result->fetch_array(MYSQLI_ASSOC)) {
          echo "<tr><td>";
          echo $row["FirstName"] . " " . $row["LastName"];
@@ -54,6 +56,20 @@ echo "</table></div>";
 </section>
 
 </div>
+
+<script>
+
+query = <?php echo json_encode($sql_query);?>;
+
+
+window.onload = function() {
+simplePopup({
+  'pop-title':  ' ', 
+  'pop-body': query, 
+  'btn-text': 'Done',
+});
+};
+</script>
 
 
 </body>

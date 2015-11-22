@@ -5,6 +5,7 @@
 <body>
 
 <?php include "includes/navbar.php"; ?>
+<?php include "includes/diagram_action.php";?>
 
 <script> document.getElementById("rangers").className += "active"; </script>
 
@@ -13,7 +14,9 @@ include 'includes/sql_connect.php';
 echo '<div class="datagrid">';
 echo "<table class='sortable'>";
 echo "<thead><tr><th>First Name</th><th>Last Name</th><th>Age</th><th>Salary</th><th>Park</th></tr></thead>";
-if ($result = $mysqli->query("SELECT * from ParkRanger")) {
+$sql_query1 = "SELECT * FROM ParkRanger";
+
+if ($result = $mysqli->query($sql_query1)) {
     while($row = $result->fetch_array(MYSQLI_ASSOC)) {
          echo "<tr><td>";
          echo $row["FirstName"];
@@ -27,7 +30,8 @@ if ($result = $mysqli->query("SELECT * from ParkRanger")) {
          echo money_format('%(#1n', $row["Salary"]);
 
          echo "</td><td>";
-         echo $mysqli->query("SELECT * from Park WHERE ID =". $row["ParkID"])->fetch_array(MYSQLI_ASSOC)['Name'];
+         $sql_query2 = "SELECT * from Park WHERE ID =". $row["ParkID"];
+         echo $mysqli->query($sql_query2)->fetch_array(MYSQLI_ASSOC)['Name'];
          echo "</td></tr>";
     }
 echo "</table></div>";    
@@ -57,6 +61,20 @@ echo "</table></div>";
 
 
 </div>
+<script>
 
+query1 = <?php echo json_encode($sql_query1);?>;
+query2 = <?php echo json_encode($sql_query2);?>;
+
+
+
+window.onload = function() {
+simplePopup({
+  'pop-title':  ' ', 
+  'pop-body': query1 + "<br><br>" + query2, 
+  'btn-text': 'Done',
+});
+};
+</script>
 </body>
 </html>

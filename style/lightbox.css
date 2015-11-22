@@ -1,0 +1,125 @@
+<!-- * Basic lightbox styles. Notice the * default 'display' is 'none'. -->
+#gallery a {
+   text-decoration:none;
+   }
+ 
+#gallery .item {
+   width: 200px; height: 200px; overflow: hidden;
+   float: left;
+   border: 5px solid #333;
+   margin: 5px;
+   }
+ 
+#gallery .item a {
+    overflow: hidden;
+   }
+ 
+#gallery .item a img {
+   height: 100%;
+   align-self: center;
+   }
+ 
+.lightbox {
+   /** Hide the lightbox */
+   opacity: 0;
+ 
+   /** Apply basic lightbox styling */
+   position: fixed;
+   z-index: 9999;
+   width: 100%;
+   height: 100%;
+   top: -100%;
+   left: 0;
+   color:#333333;
+   -webkit-transition: opacity .5s ease-in-out;
+   -moz-transition: opacity .5s ease-in-out;
+   -o-transition: opacity .5s ease-in-out;
+   transition: opacity .5s ease-in-out;
+   }
+ 
+.lightbox:target {
+    /** Show lightbox when it is target */
+   opacity: 1;
+   outline: none;
+   top: 0;
+}
+ 
+.lightbox .box {
+     width: -webkit-min-content;
+     width: -moz-min-content;
+     width: min-content;
+   min-width:500px;
+    margin: 2% auto;
+   padding:10px 20px 10px 20px;
+   background-color:#FFF;
+   box-shadow: 0px 1px 26px -3px #777777;
+   }
+ 
+.lightbox .title {
+   margin:0;
+   padding:0 0 10px 0px;
+   border-bottom:1px #ccc solid;
+   font-size:22px;
+   }
+ 
+.lightbox .content {
+   display:block;
+   position:relative;
+   margin-top : 20px;
+   }
+ 
+.lightbox .close {
+   display:block;
+   float:right;
+   text-decoration:none;
+   font-family:Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+   font-size:22px;
+   color:#858585;
+   }
+ 
+.clear {
+   display:block;
+   clear:both;
+   }
+
+   .lightbox .content .desc {
+   z-index:99;
+   bottom:0;
+   position:absolute;
+   padding:10px;
+   margin:0 0 4px 0;
+   background:rgba(0,0,0,0.8);
+ 
+   color:#fff;
+   font-size:17px;
+   opacity:0;
+   transition: opacity ease-in-out 0.5s;
+   }   
+ 
+.lightbox .content:hover .desc   {
+   opacity:1;
+}
+ 
+.lightbox .next,
+.lightbox .prev,
+.lightbox .close {
+   display:block;
+   text-decoration:none;
+   font-family:Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+   font-size:22px;
+   color:#858585;
+   }
+ 
+.prev {
+   float:left;
+   }
+ 
+.next,
+.close {
+   float:right;
+   }
+ 
+.clear {
+   display:block;
+   clear:both;
+   }

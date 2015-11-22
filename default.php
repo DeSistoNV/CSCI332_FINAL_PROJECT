@@ -4,6 +4,7 @@
 <body>
 
 <?php include "includes/navbar.php"; ?>
+<?php include "includes/diagram_action.php";?>
 <script> document.getElementById("parks").className += "active"; </script>
 
 <?php
@@ -11,7 +12,8 @@ include 'includes/sql_connect.php';
 echo '<div class="datagrid">';
 echo "<table class='sortable'>";
 echo "<thead><tr><th>Name</th><th>Address</th><th>Phone Number</th><th>Opens</th><th>Closes</th><th>Entry Fee</th></tr></thead>";
-if ($result = $mysqli->query("SELECT * FROM Park p LEFT OUTER JOIN Phone ph on p.ID = ph.ParkID LEFT OUTER JOIN Address a on p.ID = a.ParkID")) {
+$sql_query = "SELECT * FROM Park p LEFT OUTER JOIN Phone ph on p.ID = ph.ParkID LEFT OUTER JOIN Address a on p.ID = a.ParkID";
+if ($result = $mysqli->query($sql_query)) {
     while($row = $result->fetch_array(MYSQLI_ASSOC)) {
          echo "<tr><td>";
          echo $row["Name"];
@@ -60,13 +62,41 @@ echo "</table></div>";
 
             <p class="input_wrapper"><input type="number" min="0"   name="EntryFee" value="<?php echo $number ?>"  id ="contact_sujet"><label for="contact_sujet">EntryFee</label></p>
 
-				<p class="submit_wrapper"><input type="submit" value="save"></p>			
+
+				<p class="submit_wrapper"><input type="submit"  value="save"></p>			
 			</form>
 	</article>
 </section>
 
 
+
+<script>
+
+query = <?php echo json_encode($sql_query);?>;
+
+
+window.onload = function() {
+simplePopup({
+  'pop-title':  ' ', 
+  'pop-body': "<br>" + query, 
+  'btn-text': 'Done',
+});
+};
+</script>
+
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
