@@ -7,13 +7,14 @@ echo
 	<link rel="stylesheet" href="../style/styles.css?v=1.1">
 	<link rel="stylesheet" href="../style/input_style.css?v=1.1">
 	<link rel="stylesheet" href="../style/table_st.css?v=1.1">
+   <rel="stylesheet" link href="../style/pop.min.css" >
+
    <script src="../js/jquery-1.11.3.min.js"></script>
 
    <script src="../js/sorttable.js"></script>
    <script src="../js/lengthcheck.js"></script>
    <script src="../js/notify.js"></script>
 
-   <link href="../js/pop.min.css" rel="stylesheet">
    <script src="../js/pop.min.js"></script>
 
 
