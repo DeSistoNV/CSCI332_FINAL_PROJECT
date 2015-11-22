@@ -1,14 +1,11 @@
 <!doctype html>
 <html lang=''>
 <?php include "includes/head.php"; ?>
-
 <body>
-
 <?php include "includes/navbar.php"; ?>
 <?php include "includes/diagram_action.php";?>
 
 <script> document.getElementById("guest").className += "active"; </script>
-
 
 <?php
 include 'includes/sql_connect.php';
@@ -32,7 +29,6 @@ echo "</table></div>";
 
 }
 ?>
- <link rel="stylesheet" href="style/input_style.css">
 
 <div>
 

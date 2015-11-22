@@ -1,20 +1,11 @@
 <!doctype html>
 <html lang=''>
 <?php include "includes/head.php"; ?>
-
 <body>
-
 <?php include "includes/navbar.php"; ?>
 <?php include "includes/diagram_action.php";?>
 
 <script> document.getElementById("attractions").className += "active"; </script>
-
-
- <link rel="stylesheet" href="style/table_st.css">
-
-
-
-
 
 <?php
 include 'includes/sql_connect.php';
@@ -43,8 +34,6 @@ echo "</table></div>";
 ?>
 
 <div>
-
-
 
 <section id="contact">
 	<article>
