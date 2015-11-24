@@ -34,11 +34,13 @@ park_insert = <?php echo json_encode($sql);?>;
 addr_insert = <?php echo json_encode($addr_add);?>;
 phone_insert = <?php echo json_encode($phone_add);?>;
 
+trigger = "CREATE TRIGGER `upper_case_state_park` BEFORE INSERT ON `Address` <br><br>"
+trigger += "FOR EACH ROW BEGIN <br><br>SET NEW.State = UCASE(New.State); <br><br>END"
 
 window.onload = function() {
 simplePopup({
   'pop-title':  ' ', 
-  'pop-body': park_insert + '<br><br>'  + addr_insert + '<br><br>' +  phone_insert, 
+  'pop-body': '<b>' + park_insert + '<br><br>'  + addr_insert + '<br><br>' +  phone_insert + '</b><br><br><br><br>' + trigger, 
   'btn-text': 'Done',
   'click-fn': function() {window.location.href = '../default.php'; }
 });

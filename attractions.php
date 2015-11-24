@@ -11,7 +11,7 @@
 include 'includes/sql_connect.php';
 echo '<div class="datagrid">';
 echo "<table class='sortable'>";
-echo "<thead><tr><th>Name</th><th>YearOpened</th><th>Opens</th><th>Closes</th><th>Park</th></tr></thead>";
+echo "<thead><tr><th>Name</th><th>YearOpened</th><th>Opens</th><th>Closes</th><th>Park</th><th></th></tr></thead>";
 $sql_query1 = "SELECT * FROM Attraction";
 if ($result = $mysqli->query($sql_query1)) {
     while($row = $result->fetch_array(MYSQLI_ASSOC)) {
@@ -26,6 +26,10 @@ if ($result = $mysqli->query($sql_query1)) {
          echo "</td><td>";
          $sql_query2 = "SELECT * FROM Park WHERE ID =". $row["ParkID"];
          echo $mysqli->query($sql_query2)->fetch_array(MYSQLI_ASSOC)['Name'];
+         echo "</td><td>";
+         echo "<input type='button' class='btn' onclick='";
+         echo 'location.href="/includes/del_attraction.php?ID=';
+         echo $row["ID"] .'";' . "'". "value='DELETE'/>";
          echo "</td></tr>";
     }
 echo "</table></div>";    

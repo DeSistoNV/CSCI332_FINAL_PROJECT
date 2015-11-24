@@ -13,7 +13,7 @@
 include 'includes/sql_connect.php';
 echo '<div class="datagrid">';
 echo "<table class='sortable'>";
-echo "<thead><tr><th>Visited</th><th>Attraction</th><th>Visitor</th><th>Park</th></tr></thead>";
+echo "<thead><tr><th>Visited</th><th>Attraction</th><th>Visitor</th><th>Park</th><th></th></tr></thead>";
 $sql_query1 = "SELECT * FROM Visits";
 if ($result = $mysqli->query($sql_query1)) {
     while($row = $result->fetch_array(MYSQLI_ASSOC)) {
@@ -29,8 +29,11 @@ if ($result = $mysqli->query($sql_query1)) {
          echo $visitor_query['FirstName'].' '.$visitor_query['LastName'];
          echo "</td><td>";
          $sql_query4 = "SELECT * FROM Park WHERE ID = (SELECT ParkID from Attraction WHERE ID =". $attraction['ID'].")";
-
          echo $mysqli->query($sql_query4)->fetch_array(MYSQLI_ASSOC)['Name'];
+         echo "</td><td>";
+         echo "<input type='button' class='btn' onclick='";
+         echo 'location.href="/includes/del_visit.php?ID=';
+         echo $row["ID"] .'";' . "'". "value='DELETE'/>";
          echo "</td></tr>";
     }
 echo "</table></div>";    

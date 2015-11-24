@@ -8,8 +8,8 @@
 
 <?php
 include 'sql_connect.php';
-$sql = "INSERT INTO Visits (Rating,VisitorID,AttractionID,Visited) VALUES (" . $_REQUEST["Rating"] . ",";
-$sql .=  $_REQUEST["VisitorID"] ."," . $_REQUEST["AttractionID"].',CURRENT_TIMESTAMP)';
+$sql = 'DELETE from Visits where ID= ' . $_REQUEST["ID"];
+
 $mysqli->query($sql);
 ?>
 

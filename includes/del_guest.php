@@ -8,8 +8,8 @@
 
 <?php
 include 'sql_connect.php';
-$sql = "INSERT INTO Visits (Rating,VisitorID,AttractionID,Visited) VALUES (" . $_REQUEST["Rating"] . ",";
-$sql .=  $_REQUEST["VisitorID"] ."," . $_REQUEST["AttractionID"].',CURRENT_TIMESTAMP)';
+$sql = 'DELETE from Visitor where ID= ' . $_REQUEST["ID"];
+
 $mysqli->query($sql);
 ?>
 
@@ -26,7 +26,7 @@ simplePopup({
   'pop-title':  ' ', 
   'pop-body': query, 
   'btn-text': 'Done',
-  'click-fn': function() {window.location.href = '../visits.php'; }
+  'click-fn': function() {window.location.href = '../guests.php'; }
 });
 };
 </script>

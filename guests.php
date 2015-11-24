@@ -11,7 +11,7 @@
 include 'includes/sql_connect.php';
 echo '<div class="datagrid">';
 echo "<table class='sortable'>";
-echo "<thead><tr><th>Name</th><th>Age</th><th>HomeTown</th></tr></thead>";
+echo "<thead><tr><th>Name</th><th>Age</th><th>HomeTown</th><th></th></tr></thead>";
 $sql_query = "SELECT * FROM Visitor";
 if ($result = $mysqli->query($sql_query)) {
     while($row = $result->fetch_array(MYSQLI_ASSOC)) {
@@ -22,7 +22,9 @@ if ($result = $mysqli->query($sql_query)) {
          echo "</td><td>";
          echo $row["HomeTown"].', '.$row["HomeState"];
          echo "</td><td>";
-
+         echo "<input type='button' class='btn' onclick='";
+         echo 'location.href="/includes/del_guest.php?ID=';
+         echo $row["ID"] .'";' . "'". "value='DELETE'/>";
          echo "</td></tr>";
     }
 echo "</table></div>";    
