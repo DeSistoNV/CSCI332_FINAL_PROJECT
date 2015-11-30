@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang=''>
+<html lang="en">
 <?php include "includes/head.php"; ?>
 
 <body>
@@ -36,7 +36,7 @@ if ($result = $mysqli->query($sql_query1)) {
          echo $row["ID"] .'";' . "'". "value='DELETE'/>";
          echo "</td></tr>";
     }
-echo "</table></div>";    
+echo "</table></div>";
 
 }
 ?>
@@ -47,12 +47,12 @@ echo "</table></div>";
 <section id="contact">
     <article>
 
-        
+
             <label for="checkcontact" class="contactbutton"><div></div><h1>Record Visit</h1></label><input id="checkcontact" type="checkbox">
-    
+
             <form action="includes/save_visit.php" method="post" class="contactform">
                 <p class="input_wrapper"><input type="number" name="Rating" onKeyDown="limitText(this,1);" onKeyUp="limitText(this,1);" value="<?php echo $number ?>"  max=5 min=0 id ="contact_email"><label for="contact_email">Rating</label></p>
-                                
+
                 <p class="input_wrapper"><select name="VisitorID">
                 <?php include "includes/pick_guest.php" ?>
                 </select><label id='picker' for="contact_email">Visitor</label></p>
@@ -60,7 +60,7 @@ echo "</table></div>";
                 <p class="input_wrapper"><select name="AttractionID">
                 <?php include "includes/pick_attraction.php" ?>
                 </select><label id='picker' for="contact_email">Attraction</label></p>
-                <p class="submit_wrapper"><input type="submit" value="save"></p>        
+                <p class="submit_wrapper"><input type="submit" value="save"></p>
 
             </form>
     </article>
@@ -79,8 +79,8 @@ query4 = <?php echo json_encode($sql_query4);?>;
 
 window.onload = function() {
 simplePopup({
-  'pop-title':  ' ', 
-  'pop-body': query1 + "<br><br>" + query2 + "<br><br>" + query3 + "<br><br>" + query4, 
+  'pop-title':  ' ',
+  'pop-body': query1 + "<br><br>" + query2 + "<br><br>" + query3 + "<br><br>" + query4,
   'btn-text': 'Done',
   'round-corners' : true
 });

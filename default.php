@@ -5,7 +5,43 @@
 <?php include "includes/navbar.php"; ?>
 <?php include "includes/diagram_action.php";?>
 
-<script> document.getElementById("parks").className += "active"; </script>
+
+<div class="lightbox" id="img2">
+<div class="box" style="height : 70vh;">
+   <a class="close" id="closer" href="#">X</a>
+<div class="content">
+<div id="txtHint"><b>NULL.</b></div></div>
+<div class="clear"></div></div></div>
+
+
+
+<script> document.getElementById("parks").className += "active";
+
+
+function showPark(str) {
+    if (str == "") {
+        document.getElementById("txtHint").innerHTML = "";
+        return;
+    } else {
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
+            }
+        };
+        xmlhttp.open("GET","getpark.php?q="+str,true);
+        xmlhttp.send();
+    }
+    location.href="#img2";
+};
+</script>
+
 
 <?php
 include 'includes/sql_connect.php';
@@ -33,12 +69,15 @@ if ($result = $mysqli->query($sql_query)) {
          setlocale(LC_MONETARY, 'en_US');
          echo money_format('%(#1n', $row["EntryFee"]);
          echo "</td><td>";
+         echo "<input type='button' onclick='showPark(" . '"'. $row["ID"].'"' . ")' class='btn'";
+         echo "value='EDIT'/>   ";
+
          echo "<input type='button' class='btn' onclick='";
          echo 'location.href="/includes/del_park.php?ID=';
          echo $row["ID"] .'";' . "'". "value='DELETE'/>";
          echo "</td></tr>";
     }
-echo "</table></div>";    
+echo "</table></div>";
 
 }
 ?>
@@ -49,9 +88,9 @@ echo "</table></div>";
 <section id="contact">
 	<article>
 
-		
+
 			<label for="checkcontact" class="contactbutton"><div></div><h1>ADD Park</h1></label><input id="checkcontact" type="checkbox">
-	
+
 			<form action="includes/save_park.php" method="post" class="contactform">
 				<p class="input_wrapper"><input type="text" name="Name" value="<?php echo $number ?>"  id ="contact_nom"><label for="contact_nom">Name</label></p>
             <p class="input_wrapper"><input type="text" name="Addr" value="<?php echo $number ?>"  id ="contact_email"><label for="contact_email">Street Address</label></p>
@@ -67,7 +106,7 @@ echo "</table></div>";
             <p class="input_wrapper"><input type="number" min="0"   name="EntryFee" value="<?php echo $number ?>"  id ="contact_sujet"><label for="contact_sujet">EntryFee</label></p>
 
 
-				<p class="submit_wrapper"><input type="submit"  value="save"></p>			
+				<p class="submit_wrapper"><input type="submit"  value="save"></p>
 			</form>
 	</article>
 </section>
@@ -82,13 +121,13 @@ query2 += 'LEFT OUTER JOIN Phone ph ON p.ID = ph.ParkID <br><br> LEFT OUTER JOIN
 
 window.onload = function() {
 simplePopup({
-  'pop-title':  ' ', 
-  'pop-body': "<br><b>" + query + '</b><br><br><br>' + query2 , 
+  'pop-title':  ' ',
+  'pop-body': "<br><b>" + query + '</b><br><br><br>' + query2 ,
   'btn-text': 'Done',
 });
 };
 
-// style="text-transform:uppercase" 
+// style="text-transform:uppercase"
 
 
 

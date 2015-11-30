@@ -7,26 +7,22 @@
 <?php
 include 'sql_connect.php';
 
+$sql = "Update Park SET Name = '" . $_REQUEST["Name"] . "', Opens = '" . $_REQUEST["Opens"];
+$sql .= "', Closes = '" . $_REQUEST['Closes'] . "', EntryFee = " . $_REQUEST["EntryFee"];
+$sql .= " WHERE ID = ".$_REQUEST['ID'] . ";";
 
-
-
-$sql .= "INSERT INTO Park (Name,Opens,Closes,EntryFee) VALUES ('" . $_REQUEST["Name"] . "','" ;
-$sql .= $_REQUEST["Opens"]  . "','" . $_REQUEST["Closes"] . "'," . $_REQUEST["EntryFee"]. ")";
 $mysqli->query($sql);
-$park_id = $mysqli->insert_id;
 
-$addr_add  = 'INSERT INTO Address (Street,City,State,Zip,ParkID) VALUES ("';
-$addr_add .= $_REQUEST["Addr"].'","';
-$addr_add .= $_REQUEST["City"].'","';
-$addr_add .= $_REQUEST["State"].'","';
-$addr_add .= $_REQUEST["Zip"].'",';
-$addr_add .= $park_id.")";
+$addr_add = "UPDATE Address SET Street = '" . $_REQUEST["Addr"] . "', City = '" . $_REQUEST["City"];
+$addr_add .= "', State = '" . $_REQUEST['State'] . "', Zip = '" . $_REQUEST["Zip"] . "'";
+$addr_add .= " WHERE ParkID = ".$_REQUEST['ID'] . ";";
 $mysqli->query($addr_add);
 
-$phone_add  = 'INSERT INTO Phone (Number,ParkID) VALUES("';
-$phone_add .= $_REQUEST["Phone"].'",';
-$phone_add .= $park_id.")";
+
+
+$phone_add = "UPDATE Phone SET Number ='" . $_REQUEST["Phone"] . "' WHERE ParkID = " . $_REQUEST["ID"]. ';';
 $mysqli->query($phone_add);
+
 
 ?>
 

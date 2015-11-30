@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang=''>
+<html lang='en'>
 <?php include "includes/head.php"; ?>
 
 <body>
@@ -7,7 +7,41 @@
 <?php include "includes/navbar.php"; ?>
 <?php include "includes/diagram_action.php";?>
 
-<script> document.getElementById("rangers").className += "active"; </script>
+<div class="lightbox" id="img2">
+<div class="box" style="height : 40vh;">
+   <a class="close" id="closer" href="#">X</a>
+<div class="content">
+<div id="txtHint"><b>NULL.</b></div></div>
+<div class="clear"></div></div></div>
+
+
+
+<script> document.getElementById("rangers").className += "active";
+
+
+function showRanger(str) {
+    if (str == "") {
+        document.getElementById("txtHint").innerHTML = "";
+        return;
+    } else {
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
+            }
+        };
+        xmlhttp.open("GET","includes/getranger.php?q="+str,true);
+        xmlhttp.send();
+    }
+    location.href="#img2";
+};
+</script>
 
 <?php
 include 'includes/sql_connect.php';
@@ -33,12 +67,14 @@ if ($result = $mysqli->query($sql_query1)) {
          $sql_query2 = "SELECT * from Park WHERE ID =". $row["ParkID"];
          echo $mysqli->query($sql_query2)->fetch_array(MYSQLI_ASSOC)['Name'];
          echo "</td><td>";
+         echo "<input type='button' onclick='showRanger(" . '"'. $row["ID"].'"' . ")' class='btn'";
+         echo "value='EDIT'/>   ";
          echo "<input type='button' class='btn' onclick='";
          echo 'location.href="/includes/del_ranger.php?ID=';
          echo $row["ID"] .'";' . "'". "value='DELETE'/>";
          echo "</td></tr>";
     }
-echo "</table></div>";    
+echo "</table></div>";
 
 }
 ?>
@@ -49,7 +85,7 @@ echo "</table></div>";
 	<article>
 
 			<label for="checkcontact" class="contactbutton"><div></div><h1>ADD Ranger</h1></label><input id="checkcontact" type="checkbox">
-	
+
 			<form action="includes/save_ranger.php" method="post" class="contactform">
 				<p class="input_wrapper"><input type="text" name="FirstName" onkeypress="return onlyAlphabets(event,this);" value="<?php echo $number ?>"  id ="contact_nom"><label for="contact_nom">First Name</label></p>
 				<p class="input_wrapper"><input type="text" name="LastName"  onkeypress="return onlyAlphabets(event,this);" value="<?php echo $number ?>"  id ="contact_email"><label for="contact_email">Last Name</label></p>
@@ -58,7 +94,7 @@ echo "</table></div>";
 				<p class="input_wrapper"><select name="ParkID">
             <?php include "includes/pick_park.php" ?>
             </select><label id='picker' for="contact_email">Park</label></p>
-				<p class="submit_wrapper"><input type="submit" value="save"></p>			
+				<p class="submit_wrapper"><input type="submit" value="save"></p>
 			</form>
 	</article>
 </section>
@@ -74,8 +110,8 @@ query2 = <?php echo json_encode($sql_query2);?>;
 
 window.onload = function() {
 simplePopup({
-  'pop-title':  ' ', 
-  'pop-body': query1 + "<br><br>" + query2, 
+  'pop-title':  ' ',
+  'pop-body': query1 + "<br><br>" + query2,
   'btn-text': 'Done',
 });
 };

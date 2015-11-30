@@ -9,8 +9,11 @@
 
 <?php
 include 'sql_connect.php';
-$sql = "INSERT INTO Visitor (FirstName,LastName,Age,HomeTown,HomeState) VALUES ('" . $_REQUEST["FirstName"] . "','";
-$sql .= $_REQUEST["LastName"]."',".$_REQUEST["Age"] . ",'" . $_REQUEST["HomeTown"] . "','" . $_REQUEST["HomeState"]."')";
+
+$sql = "UPDATE Visitor SET FirstName = '" . $_REQUEST["FirstName"] . "',LastName = '" . $_REQUEST["LastName"];
+$sql .= "',HomeTown ='" . $_REQUEST["HomeTown"] . "',Age = ".$_REQUEST["Age"] .",HomeState = '". $_REQUEST["HomeState"] ."' " ." WHERE ID = " . $_REQUEST["ID"];
+
+
 
 if (!$mysqli->query($sql)) {
     $sql = "CALL failed: (" . $mysqli->errno . ") " . $mysqli->error;
